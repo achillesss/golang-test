@@ -27,7 +27,7 @@ func useVariables(someVariables interface{}) {
 }
 
 func TestUseVariables(t *testing.T) {
-	var slice = []string{}
+	var slice = []string{"1", "2"}
 	fmt.Printf("variables: %+[1]v, %[1]T, %p\n", slice, &slice)
 	useVariables(slice)
 	useVariables(&slice)
