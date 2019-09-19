@@ -7,6 +7,8 @@ import (
 
 func TestInterface(t *testing.T) {
 	var i interface{}
+	var val = reflect.ValueOf(i)
+	println(val.IsValid())
 	// true
 	println(i == nil)
 	var str *string
@@ -20,7 +22,7 @@ func TestInterface(t *testing.T) {
 	// false
 	println(i == nil)
 
-	var val = reflect.ValueOf(i)
+	val = reflect.ValueOf(i)
 	// true
 	println(val.IsNil())
 }
