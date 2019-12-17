@@ -90,6 +90,10 @@ func CopyMap(src, dst interface{}) bool {
 }
 
 func TestUpdateMapValue(t *testing.T) {
+	var nilMap map[int]int
+	for k, v := range nilMap {
+		println("nil map", k, v)
+	}
 	var map0 = make(map[int]int)
 	fmt.Printf("map: %+#v\n", map0)
 	UpdateMapValue(map0, 1, 1)
