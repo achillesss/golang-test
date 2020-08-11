@@ -21,6 +21,27 @@ func receiveSignal(done chan struct{}, signal chan int) {
 	}
 }
 
+func testCloseChan(ch chan struct{}) {
+	go func() {
+		select {
+		case signal := <-ch:
+			fmt.Printf("select receive close signal: %v\n", signal)
+		}
+	}()
+
+	go func() {
+		for signal := range ch {
+			fmt.Printf("for range receive close signal: %v\n", signal)
+		}
+	}()
+
+	go func() {
+		var signal = <-ch
+		fmt.Printf("normal receive close signal: %v\n", signal)
+	}()
+
+}
+
 func TestChan(t *testing.T) {
 	var done = make(chan struct{})
 	var signal = make(chan int, 10)
@@ -33,6 +54,10 @@ func TestChan(t *testing.T) {
 
 	go receiveSignal(done, signal)
 	go close(done)
+
+	var closeTest = make(chan struct{})
+	testCloseChan(closeTest)
+	close(closeTest)
 
 	time.Sleep(time.Second * 10)
 }

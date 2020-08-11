@@ -20,6 +20,20 @@ func TestUpdateSliceString(t *testing.T) {
 	fmt.Printf("slice: %+#v\n", slice)
 }
 
+func removeElementFromArray(src []string, index int) []string {
+	var x = make([]string, 0, cap(src))
+	x = append(x, src...)
+
+	var head = x[:index]
+
+	if index == len(x)-1 {
+		return head
+	}
+
+	var tail = x[index+1:]
+	return append(head, tail...)
+}
+
 func TestSortStructSlice(t *testing.T) {
 	var s = struct {
 		sli []int
@@ -29,4 +43,10 @@ func TestSortStructSlice(t *testing.T) {
 		return s.sli[i] > s.sli[j]
 	})
 	fmt.Printf("struct: %+#v\n", s)
+
+	var src = []string{"1", "2", "3", "4"}
+	for i := range src {
+		var y = removeElementFromArray(src, i)
+		fmt.Printf("y: %v\n", y)
+	}
 }
